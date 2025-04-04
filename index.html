@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة Capture the Flag</title>
+	<script src="AllFunctions.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            direction: rtl;
+            text-align: center;
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .stage-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .stage-icons div {
+            text-align: center;
+        }
+        .stage-icons i {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+        .game-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .start-btn {
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+    </style>
+    <script>
+        function validateAndProceed() {
+            let playerName = document.getElementById("playerName").value.trim();
+            if (playerName === "") {
+                alert("الرجاء إدخال اسم اللاعب!");
+            } else {
+                window.location.href = "next-page.html"; // استبدل هذا برابط الصفحة التالية
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container game-container">
+		<img src="phases.JPG" alt="عدد المراحل"/>
+        <div class="mt-4">
+            <br>
+        </div>
+        <button class="btn btn-primary start-btn" onclick="PageLv1()">بدء التحدي</button>
+    </div>
+    <footer class="footer" dir="ltr">
+        &copy; ES, 2025
+    </footer>
+</body>
+</html>
