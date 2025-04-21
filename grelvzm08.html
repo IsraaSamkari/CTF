@@ -62,9 +62,9 @@
                 <div class="mt-4">
                     <h4>أمثلة على حقن SQL:</h4>
                     <div class="alert alert-warning" dir="ltr">
-                        <code>' OR '1'='1</code><br>
+                        <code>' OR '1'='1'</code><br>
                         <code>' OR 1=1--</code><br>
-                        <code>' OR ''='</code>
+                        <code>' OR ''=''</code>
                     </div>
                 </div>
             </div>
@@ -135,9 +135,7 @@
                 const user = users.find(u => u.username === username);
                 if (user) {
                     if (user.password === password) {
-                        resultDiv.style.backgroundColor = '#dff0d8';
-                        resultDiv.style.color = '#3c763d';
-                        resultDiv.innerHTML = 'تسجيل الدخول صحيح';
+                        PageLv4();
                     } else {
                         resultDiv.style.backgroundColor = '#f2dede';
                         resultDiv.style.color = '#a94442';

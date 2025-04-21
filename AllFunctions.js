@@ -42,7 +42,7 @@ function checkSecretNumber(){
 
 
 function checkCaesarCipher(text) {
-	if (text === "Hacking is fun") {
+	if (text === "hacking is fun") {
 		return true;
 	} else {
 		return false;

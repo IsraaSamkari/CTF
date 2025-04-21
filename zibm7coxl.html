@@ -91,17 +91,121 @@
                         <li class="list-group-item">كل حرف تم تحريكه بمقدار ثلاثة</li>
                         <li class="list-group-item">هل تم تحريكه الى اليمين او اليسار؟ هذه المرة لن اخبرك</li>
                         <li class="list-group-item">استخدام خوارزمية قيصر لفك الشفرة</li>
+                        <li class="list-group-item">في حالة فتح الشفرة، ستظهر زر لتنزيل الشهادة</li>
+                        <li class="list-group-item">تستطيع تحميل الشهادة ولا تنسى فتح الملف المضغوط</li>
                     </ul>
-                    
                     <div class="hint">
                         <h4>تلميح:</h4>
                         <p>خوارزمية قيصر (Caesar Cipher) هي طريقة تشفير قديمة حيث يتم استبدال كل حرف في النص الأصلي بحرف آخر بتحويل ثابت.</p>
                         <p>مثال: إذا كان التحويل +3  فإن A تصبح D، اما اذا كان -3 فان A تصبح X</p>
+                        <!-- Caesar Cipher Widget - Compact Embeddable Version -->
+<div id="caesar-cipher-widget" style="width: 300px; margin: 20px auto; font-family: Arial, sans-serif;">
+    <div style="position: relative; width: 200px; height: 200px; margin: 0 auto 15px;">
+      <div id="cipher-outer-wheel" style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: #f0f0f0;"></div>
+      <div id="cipher-inner-wheel" style="position: absolute; width: 70%; height: 70%; border-radius: 50%; background: #4CAF50; top: 15%; left: 15%;"></div>
+    </div>
+    
+    <div style="margin-bottom: 10px;">
+      <label style="display: block; margin-bottom: 5px; " dir="rtl">مقدار الازاحة: <span id="cipher-shift-value">0</span></label>
+      <input id="cipher-shift-control" type="range" min="0" max="25" value="0" style="width: 100%;">
+    </div>
+    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+      <button id="cipher-encrypt-btn" style="flex: 1; padding: 8px;  border: none; cursor: pointer;"></button>
+      <button id="cipher-decrypt-btn" style="flex: 1; padding: 8px;  border: none; cursor: pointer;"></button>
+    </div>
+    
+  </div>
+  
+  <script>
+  (function() {
+    // Initialize wheels
+    const outerWheel = document.getElementById('cipher-outer-wheel');
+    const innerWheel = document.getElementById('cipher-inner-wheel');
+    const shiftControl = document.getElementById('cipher-shift-control');
+    const shiftValue = document.getElementById('cipher-shift-value');
+    const inputText = document.getElementById('cipher-input');
+    const encryptBtn = document.getElementById('cipher-encrypt-btn');
+    const decryptBtn = document.getElementById('cipher-decrypt-btn');
+    const resultDiv = document.getElementById('cipher-result');
+    
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    
+    // Create letters for wheels
+    function createWheelLetters(wheel, radius, letters) {
+      wheel.innerHTML = '';
+      for (let i = 0; i < letters.length; i++) {
+        const angle = (i * 360 / letters.length) * (Math.PI / 180);
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+        
+        const letter = document.createElement('div');
+        letter.style.position = 'absolute';
+        letter.style.fontWeight = 'bold';
+        letter.style.fontSize = '14px';
+        letter.style.width = '16px';
+        letter.style.height = '16px';
+        letter.style.textAlign = 'center';
+        letter.style.left = `calc(50% + ${x}px - 8px)`;
+        letter.style.top = `calc(50% + ${y}px - 8px)`;
+        letter.textContent = letters[i];
+        wheel.appendChild(letter);
+      }
+    }
+    
+    // Update rotation
+    function updateRotation(shift) {
+      const degrees = shift * (360 / 26);
+      innerWheel.style.transform = `rotate(${degrees}deg)`;
+      shiftValue.textContent = shift;
+    }
+    
+    // Caesar cipher function
+    function caesarCipher(text, shift, decrypt = false) {
+      if (decrypt) shift = (26 - shift) % 26;
+      
+      return text.split('').map(char => {
+        if (/[A-Z]/.test(char)) {
+          const code = char.charCodeAt(0) - 65;
+          return String.fromCharCode((code + shift) % 26 + 65);
+        } else if (/[a-z]/.test(char)) {
+          const code = char.charCodeAt(0) - 97;
+          return String.fromCharCode((code + shift) % 26 + 97);
+        }
+        return char;
+      }).join('');
+    }
+    
+    // Event listeners
+    shiftControl.addEventListener('input', function() {
+      updateRotation(parseInt(this.value));
+    });
+    
+    encryptBtn.addEventListener('click', function() {
+      const text = inputText.value;
+      const shift = parseInt(shiftControl.value);
+      const encrypted = caesarCipher(text, shift);
+      resultDiv.innerHTML = `<strong>Encrypted:</strong> ${encrypted}`;
+    });
+    
+    decryptBtn.addEventListener('click', function() {
+      const text = inputText.value;
+      const shift = parseInt(shiftControl.value);
+      const decrypted = caesarCipher(text, shift, true);
+      resultDiv.innerHTML = `<strong>Decrypted:</strong> ${decrypted}`;
+    });
+    
+    // Initialize
+    createWheelLetters(outerWheel, 90, alphabet);
+    createWheelLetters(innerWheel, 60, alphabet);
+    updateRotation(0);
+  })();
+  </script>
                     </div>
-                    
+
                     <div class="alert alert-info mt-4">
                         <p class="mb-0">بالتوفيق 😈..</p>
                     </div>
+                    
                 </div>
             </div>
 
@@ -109,7 +213,7 @@
             <div class="col-md-6 right-panel">
                 <div class="text-center">
                     <h2 class="mb-4">الجملة المشفرة هي</h2>
-                    <div class="encrypted-text mb-4">Kdfnlqjlvixq</div>
+                    <div class="encrypted-text mb-4">kdfnlqj lv ixq</div>
                     
                     <div class="input-group mb-3">
                         <input type="text" class="form-control form-control-lg" 
