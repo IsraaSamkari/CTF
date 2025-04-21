@@ -1,21 +1,21 @@
 function PageLv1(){
-	window.open("Lv1.html","_self")
+	window.open("vrojk3nqz.html","_self")
 }
 
 function PageLv2(){
-	window.open("Lv2.html","_self")
+	window.open("xutp9wbla.html","_self")
 }
 
 function PageLv3(){
-	window.open("Lv3.html","_self")
+	window.open("grelvzm08.html","_self")
 }
 
 function PageLv4(){
-	window.open("Lv4.html","_self")
+	window.open("kynqdrfwe.html","_self")
 }
 
 function PageLv5(){
-	window.open("Lv5.html","_self")
+	window.open("zibm7coxl.html","_self")
 }
 
 
